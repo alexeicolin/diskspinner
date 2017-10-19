@@ -1,0 +1,11 @@
+[Unit]
+Description=Keep USB-SATA alive by writing to disk mounted at /mnt/%i
+
+[Service]
+User=nobody
+Group=nobody
+ExecStart=/usr/local/bin/diskspinner /mnt/%i/diskspinner/datafile 10
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
