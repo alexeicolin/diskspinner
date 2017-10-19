@@ -13,12 +13,24 @@ The utility creates a file of a few MB in disk's mount directory and writes to t
 Usage
 -----
 
-Install the systemd service (optionally edit the interval in the file):
+Optionally, edit diskspinner@.service to select the interval and filename.
 
-    sudo cp diskspinner@.service /etc/systemd/system/
+Build and install the binary and the systemd service:
+
+    make
+    sudo make install
     sudo systemctl daemon-reload
 
-Then to start the service at boot for each disk mounted at /mnt/xxx:
+Then to start the service for each disk mounted at /mnt/xxx:
 
     sudo systemctl start diskspinner@xxx
+
+To autostart at boot:
+
     sudo systemctl enable diskspinner@xxx
+
+To uninstall:
+
+    sudo systemctl stop diskspinner@xxx
+    sudo systemctl disable diskspinner@xxx
+    sudo make uninstall
