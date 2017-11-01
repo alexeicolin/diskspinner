@@ -1,0 +1,21 @@
+#!/bin/bash
+DEV=$1
+
+if [ -z $DEV ]
+then
+	echo "Usage: $0 /dev/device"
+	exit 1
+fi
+
+SECTORSIZE=512
+DEVSIZE=$(($(blockdev --getsize64 $DEV) / $SECTORSIZE))
+MAX_RANDOM=32767
+INTERVAL_SEC=20
+NUM_SECTORS=16
+
+while true
+do
+    OFFSET=$(($SECTORSIZE / $MAX_RANDOM * $RANDOM))
+    dd if=$DEV of=/dev/null status=none bs=$SECTORSIZE count=$NUM_SECTORS seek=$OFFSET
+    sleep $INTERVAL_SEC
+done
