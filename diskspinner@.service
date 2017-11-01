@@ -3,8 +3,8 @@ Description=Keep disk at /dev/%i from going to sleep with random reads
 
 [Service]
 Type=simple
-#User=nobody
-#Group=nobody
+User=nobody
+Group=disk
 ExecStart=/usr/bin/diskspinner /dev/%i
 
 [Install]
