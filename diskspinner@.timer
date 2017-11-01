@@ -1,0 +1,9 @@
+[Unit]
+Description=Scheduler for diskspinner@%i service
+
+[Timer]
+OnBootSec=0
+OnUnitActiveSec=10s
+
+[Install]
+WantedBy=multi-user.target

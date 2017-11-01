@@ -1,11 +1,11 @@
 [Unit]
-Description=Keep USB-SATA alive by writing to disk mounted at /mnt/%i
+Description=Keep disk at /dev/%i from going to sleep with random reads
 
 [Service]
-User=nobody
-Group=nobody
-ExecStart=/usr/local/bin/diskspinner /mnt/%i/diskspinner/datafile 10
-Restart=on-failure
+Type=oneshot
+#User=nobody
+#Group=nobody
+ExecStart=/usr/bin/bash -c "dd if=/dev/%i of=/dev/null status=none count=16 seek=$(($(blockdev --getsize64 /dev/sda) / 32767 * $RANDOM))"
 
 [Install]
 WantedBy=default.target

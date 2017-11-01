@@ -4,33 +4,20 @@ diskspinner
 Silly little utility that keeps disks spinning in order to work around bugs
 in USB-to-SATA bridges that fail when the harddrive goes into idle mode.
 
-One such unsavory combination turns out to be WD40FX drive with DatOptic
-U3eSATA dongle. Other than the disconnect-on-idle problem the dongle works
-fine.
-
-The utility creates a file of a few MB in disk's mount directory and writes to the disk every 10 seconds.
+One such unsavory combination turns out to be WD drives with DatOptic U3eSATA
+dongle. Other than the disconnect-on-idle problem the dongle works fine.
 
 Usage
 -----
 
-Optionally, edit diskspinner@.service to select the interval and filename.
+Install:
 
-Build and install the binary and the systemd service:
+    cp diskspinner@.{service,timer} /etc/systemd/system
 
-    make
-    sudo make install
-    sudo systemctl daemon-reload
+Start manually for each device, e.g. sdX:
+    
+    systemctl start diskspinner@sdX.timer
+    
+Configure to start automatically on boot:
 
-Then to start the service for each disk mounted at /mnt/xxx:
-
-    sudo systemctl start diskspinner@xxx
-
-To autostart at boot:
-
-    sudo systemctl enable diskspinner@xxx
-
-To uninstall:
-
-    sudo systemctl stop diskspinner@xxx
-    sudo systemctl disable diskspinner@xxx
-    sudo make uninstall
+    systemctl enable diskspinner@sdX.timer
