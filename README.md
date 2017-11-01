@@ -12,12 +12,9 @@ Usage
 
 Install:
 
-    cp diskspinner@.{service,timer} /etc/systemd/system
+    cp diskspinner@.service /usr/lib/systemd/system
+    cp diskspinner /usr/bin/
 
-Start manually for each device, e.g. sdX:
-    
-    systemctl start diskspinner@sdX.timer
-    
 Configure to start automatically on boot:
 
-    systemctl enable diskspinner@sdX.timer
+    systemctl enable diskspinner@sdX
