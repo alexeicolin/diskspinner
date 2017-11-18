@@ -16,6 +16,6 @@ NUM_SECTORS=16
 while true
 do
     OFFSET=$(($DEVSIZE / $MAX_RANDOM * $RANDOM))
-    dd if=$DEV of=/dev/null status=none bs=$SECTORSIZE count=$NUM_SECTORS seek=$OFFSET
+    dd if=$DEV of=/dev/null status=none bs=$SECTORSIZE count=$NUM_SECTORS skip=$OFFSET
     sleep $INTERVAL_SEC
 done
